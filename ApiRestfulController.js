@@ -2,9 +2,9 @@
 const express = require('express');
 const db = require('./config/conexion');
 const cors = require('cors');
-const http=require('http');
+/* const http=require('http');
 
-const host='201.239.251.81';
+const host='201.239.251.81'; */
 
 
 //intanciamos 
@@ -142,15 +142,15 @@ app.post('/filtros', (req,res)=> {
     })
     
 })
-const requestListener=(req,res)=>{};
+/* const requestListener=(req,res)=>{};
 const server= http.createServer(requestListener);
 server.listen(PORT,host,()=>{
     console.log(`tu servidor esta andando en:${host}:${PORT}`)
 });
-
+*/
 //Essta Seccion se encarga de detectar cualquier cambio en el codigo para realizar y actualizar el servidor
-/* app.listen(PORT,()=>{
+app.listen(PORT,()=>{
     console.log(`Servidor andando en el puerto : ${PORT}`);
-})  */
+})  
 
   
