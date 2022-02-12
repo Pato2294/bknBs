@@ -151,6 +151,6 @@ server.listen(PORT,host,()=>{
 //Essta Seccion se encarga de detectar cualquier cambio en el codigo para realizar y actualizar el servidor
 app.listen(PORT,()=>{
     console.log(`Servidor andando en el puerto : ${PORT}`);
-})  //fin
+})  
 
   
