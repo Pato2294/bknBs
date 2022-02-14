@@ -7,7 +7,7 @@ const cors = require('cors');
 const host='201.239.251.81'; */
 
 
-//intanciamos 
+//instanciamos 
 const app = express();
 app.use(express.urlencoded({extended:false}));
 app.use(express.json());
@@ -83,9 +83,15 @@ app.post('/filtros', (req,res)=> {
     const rangoPrecio=req.body.fRango;
     const descuento=req.body.fDesc;
     const categorias=req.body.fCat||[];
+    let condicionCat="";
     let productosFiltrados=[];
+   
+    if(categorias.length)
+    {
+        condicionCat= `where category in (${categorias})`;//se aplica la condicion de las categorias de manera que se filtre en la consulta y las demas condiciones con metodos ES6(EsmaScrpt 6)
+    }
 
-    db.query(`SELECT * FROM product order by category`,(err,data)=>
+    db.query(`SELECT * FROM product ${condicionCat} order by category`,(err,data)=>
     {   
         if(err){
             res.json({
@@ -127,14 +133,9 @@ app.post('/filtros', (req,res)=> {
             descuento==2? productosFiltrados=productosFiltrados.filter(producto=>producto.discount>0).reduce((total,valor,index)=>{total[index]=valor; return total;},[]):
             productosFiltrados=productosFiltrados.filter(producto=>producto.discount==0).reduce((total,valor,index)=>{total[index]=valor; return total;},[]);
         }
-       
-        if(categorias != undefined){
-            if(categorias.length>0)
-            for(let x=0;x<categorias.lenght;x++){
-                productosFiltrados=productosFiltrados.find(producto.category==categorias[x]).reduce((total,valor,index)=>{total[index]=valor; return total;},[]);
-            }
-        } 
+     
     //Una vez filtrado se envia la respuesta al cliente listo para ser procesados por el fronted
+  
         res.json({
             mensaje:'Resultados Busqueda',
             productosFiltrados
@@ -142,12 +143,7 @@ app.post('/filtros', (req,res)=> {
     })
     
 })
-/* const requestListener=(req,res)=>{};
-const server= http.createServer(requestListener);
-server.listen(PORT,host,()=>{
-    console.log(`tu servidor esta andando en:${host}:${PORT}`)
-});
-*/
+
 //Essta Seccion se encarga de detectar cualquier cambio en el codigo para realizar y actualizar el servidor
 app.listen(PORT,()=>{
     console.log(`Servidor andando en el puerto : ${PORT}`);
