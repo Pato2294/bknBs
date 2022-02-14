@@ -74,7 +74,7 @@ app.get('/buscar/:busqueda', (req,res)=> {
             data
         })
     })
-    
+
 })
 //Esta peticion se encargara de enviar los resultados del filtrado de los productos solicitados, recibiendo como paramentro el "body",
 // que contendra los filtros aplicados por el cliente por medio de la peticion POST  
